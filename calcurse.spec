@@ -1,5 +1,5 @@
 Summary:	Calcurse - text-based personal organizer
-Summary(pl.UTF-8):   Calcurse - tekstowy organizer
+Summary(pl.UTF-8):	Calcurse - tekstowy organizer
 Name:		calcurse
 Version:	1.7
 Release:	1
