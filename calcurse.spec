@@ -1,5 +1,5 @@
 Summary:	Calcurse - text-based personal organizer
-Summary(pl.UTF-8):	Calcurse - tekstowy organizer
+Summary(pl):	Calcurse - tekstowy organizer
 Name:		calcurse
 Version:	1.7
 Release:	1
@@ -20,12 +20,12 @@ configurable, and one can choose between different color schemes and
 layouts. All of the commands are documented within an online help
 system.
 
-%description -l pl.UTF-8
-Calcurse jest tekstowym organizerem, ktÃ³ry pomaga w Å›ledzeniu
-codziennych czynnoÅ›ci. Zawiera kalendarz, listÄ™ zadaÅ„ do zrobienia
-"todo", potrafi uporzÄ…dkowaÄ‡ listÄ™ spotkaÅ„. Interfejs uÅ¼ytkownika jest
-konfigurowalny i moÅ¼na wybraÄ‡ jeden ze schematÃ³w kolorowania i ukÅ‚adu
-okien. Wszystkie komendy programu sÄ… udokumentowane w systemie pomocy
+%description -l pl
+Calcurse jest tekstowym organizerem, który pomaga w ¶ledzeniu
+codziennych czynno¶ci. Zawiera kalendarz, listê zadañ do zrobienia
+"todo", potrafi uporz±dkowaæ listê spotkañ. Interfejs u¿ytkownika jest
+konfigurowalny i mo¿na wybraæ jeden ze schematów kolorowania i uk³adu
+okien. Wszystkie komendy programu s± udokumentowane w systemie pomocy
 online.
 
 %prep
