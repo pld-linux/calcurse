@@ -1,12 +1,12 @@
 Summary:	Calcurse - text-based personal organizer
 Summary(pl.UTF-8):	Calcurse - tekstowy organizer
 Name:		calcurse
-Version:	1.9
+Version:	2.1
 Release:	1
 License:	GPL v2
 Group:		Applications
 Source0:	ftp://ftp.pld-linux.org/people/piotrek/src/%{name}-%{version}.tar.gz
-# Source0-md5:	e6d7bad03b2a28ed06f8ef65e9dcd227
+# Source0-md5:	747181986539926576078a23967bc608
 URL:		http://culot.org/calcurse/
 BuildRequires:	ncurses-devel
 BuildRequires:	sed >= 4.0
