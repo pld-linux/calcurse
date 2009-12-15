@@ -1,0 +1,120 @@
+> Hello:)
+>
+> Calcurse is nice program - i like this program, but i find bug:
+>
+> if lenght one entry in file ~/.calcurse/apts (Appointments) > 256 then i
+> see error in execute program:
+> (...)
+
+Hello Kamil,
+
+enclosed you will find an updated version that should fix the bug you mention.
+Actually this is a quick fix (I am very busy at work right now so it is
+difficult to spend time on calcurse...). Anyway, if you want to send me a
+better patch I would be happy to include it in next stable release.  The
+function to update is apoint_scan (file apoint.c): the item should be loaded
+into a dynamically allocated string, whereas for now on it is just a fixed
+size buffer.
+
+Please tell me if the enclosed version fixes your problem, and many thanks for
+your bug report. Do not hesitate to contact me if you find other bugs!
+
+Regards,
+Frederic
+
+diff -Naur calcurse-2.5/src/apoint.c calcurse-2.5.new/src/apoint.c
+--- calcurse-2.5/src/apoint.c	2009-01-03 22:32:11.000000000 +0100
++++ calcurse-2.5.new/src/apoint.c	2009-05-22 21:40:33.000000000 +0200
+@@ -462,14 +462,14 @@
+ apoint_llist_node_t *
+ apoint_scan (FILE *f, struct tm start, struct tm end, char state, char *note)
+ {
+-  char buf[MESG_MAXSIZE], *newline;
++  char buf[BUFSIZ], *newline;
+   time_t tstart, tend, t;
+ 
+   t = time (NULL);
+   (void)localtime (&t);
+ 
+   /* Read the appointment description */
+-  (void)fgets (buf, MESG_MAXSIZE, f);
++  (void)fgets (buf, sizeof buf, f);
+   newline = strchr (buf, '\n');
+   if (newline)
+     *newline = '\0';
+diff -Naur calcurse-2.5/src/apoint.h calcurse-2.5.new/src/apoint.h
+--- calcurse-2.5/src/apoint.h	2009-01-03 22:32:11.000000000 +0100
++++ calcurse-2.5.new/src/apoint.h	2009-05-22 21:44:42.000000000 +0200
+@@ -33,7 +33,6 @@
+ #include "vars.h"
+ 
+ #define HRMIN_SIZE 6
+-#define MESG_MAXSIZE 256
+ 
+ #define APOINT_NULL		0x0
+ #define APOINT_NOTIFY		0x1	/* Item needs to be notified */
+diff -Naur calcurse-2.5/src/event.c calcurse-2.5.new/src/event.c
+--- calcurse-2.5/src/event.c	2009-01-03 22:32:11.000000000 +0100
++++ calcurse-2.5.new/src/event.c	2009-05-22 21:45:30.000000000 +0200
+@@ -141,14 +141,14 @@
+ struct event_s *
+ event_scan (FILE *f, struct tm start, int id, char *note)
+ {
+-  char buf[MESG_MAXSIZE], *nl;
++  char buf[BUFSIZ], *nl;
+   time_t tstart, t;
+ 
+   t = time (NULL);
+   (void)localtime (&t);
+ 
+   /* Read the event description */
+-  (void)fgets (buf, MESG_MAXSIZE, f);
++  (void)fgets (buf, sizeof buf, f);
+   nl = strchr (buf, '\n');
+   if (nl)
+     {
+diff -Naur calcurse-2.5/src/event.h calcurse-2.5.new/src/event.h
+--- calcurse-2.5/src/event.h	2009-01-03 22:32:11.000000000 +0100
++++ calcurse-2.5.new/src/event.h	2009-05-22 21:45:35.000000000 +0200
+@@ -30,7 +30,6 @@
+ #include "utils.h"
+ 
+ #define HRMIN_SIZE 6
+-#define MESG_MAXSIZE 256
+ 
+ struct event_s
+ {
+diff -Naur calcurse-2.5/src/recur.c calcurse-2.5.new/src/recur.c
+--- calcurse-2.5/src/recur.c	2009-01-03 22:32:11.000000000 +0100
++++ calcurse-2.5.new/src/recur.c	2009-05-22 21:46:07.000000000 +0200
+@@ -414,14 +414,14 @@
+ 		   char state)
+ {
+   struct tm *lt;
+-  char buf[MESG_MAXSIZE], *nl;
++  char buf[BUFSIZ], *nl;
+   time_t tstart, tend, t, tuntil;
+ 
+   t = time (NULL);
+   lt = localtime (&t);
+ 
+   /* Read the appointment description */
+-  (void)fgets (buf, MESG_MAXSIZE, f);
++  (void)fgets (buf, sizeof buf, f);
+   nl = strchr (buf, '\n');
+   if (nl)
+     {
+@@ -462,11 +462,11 @@
+ recur_event_scan (FILE *f, struct tm start, int id, char type, int freq,
+ 		  struct tm until, char *note, struct days_s **exc)
+ {
+-  char buf[MESG_MAXSIZE], *nl;
++  char buf[BUFSIZ], *nl;
+   time_t tstart, tuntil;
+ 
+   /* Read the event description */
+-  (void)fgets (buf, MESG_MAXSIZE, f);
++  (void)fgets (buf, sizeof buf, f);
+   nl = strchr (buf, '\n');
+   if (nl)
+     {
