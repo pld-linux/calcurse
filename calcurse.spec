@@ -1,13 +1,13 @@
 Summary:	Calcurse - text-based personal organizer
 Summary(pl.UTF-8):	Calcurse - tekstowy organizer
 Name:		calcurse
-Version:	2.8
-Release:	1
+Version:	2.9.0
+Release:	0.1
 License:	GPL v2
 Group:		Applications
-Source0:	http://culot.org/cgi-bin/get.cgi?calcurse-2.8.tar.gz
-# Source0-md5:	124d40c0912b12021996220f02b759cc
-URL:		http://culot.org/calcurse/
+Source0:	http://calcurse.org/files/%{name}-%{version}.tar.gz
+# Source0-md5:	3ff0229581060d43232a6fb56b0cd07a
+URL:		http://calcurse.org/
 BuildRequires:	ncurses-devel
 BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -31,16 +31,10 @@ online.
 %prep
 %setup -q
 
-
-%{__sed} -i -e 's/#include <ncurses.h>/#include <ncurses\/ncurses.h>/' src/*{c,h}
-%{__sed} -i -e 's/ncurses\.h/ncurses\/ncurses.h/' configure
-
 %build
-%configure
-
-%{__make} \
-	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}"
+%configure \
+	LDFLAGS="%{rpmldflags} $(pkg-config --libs ncursesw)"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
