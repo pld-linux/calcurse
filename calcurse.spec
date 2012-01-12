@@ -2,8 +2,8 @@ Summary:	Calcurse - text-based personal organizer
 Summary(pl.UTF-8):	Calcurse - tekstowy organizer
 Name:		calcurse
 Version:	2.9.2
-Release:	0.1
-License:	GPL v2
+Release:	1
+License:	GPL v2+
 Group:		Applications
 Source0:	http://calcurse.org/files/%{name}-%{version}.tar.gz
 # Source0-md5:	5cb7d9c9edddc551fc62c9c5733591c5
@@ -35,6 +35,7 @@ online.
 %configure \
 	CPPFLAGS="%{rpmcppflags} $(pkg-config --cflags ncursesw)"
 	LDFLAGS="%{rpmldflags} $(pkg-config --libs ncursesw)"
+
 %{__make}
 
 %install
